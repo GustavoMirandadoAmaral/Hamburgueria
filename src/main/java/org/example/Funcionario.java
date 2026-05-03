@@ -15,10 +15,6 @@ public abstract class Funcionario {
         this.funcionarioSuperior = funcionarioSuperior;
     }
 
-    public Funcionario getFuncionarioSuperior(){
-        return funcionarioSuperior;
-    }
-
     public abstract String getEmpregado();
 
     public String realizarAcao(Acao acao){

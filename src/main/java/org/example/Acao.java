@@ -12,7 +12,4 @@ public class Acao {
         return tipoAcao;
     }
 
-    public void setTipoAcao(TipoAcao tipoAcao){
-        this.tipoAcao = tipoAcao;
-    }
 }
