@@ -1,6 +1,7 @@
 package org.example;
 
 public interface FabricaAbstrata {
-    Pedido createPedido(double valor);
-    PlataformaPagamento createPagamento();
+    Hamburguer createHamburguerBase(TipoCarne tipoCarne);
+
+    Hamburguer adicionarMolho(Hamburguer hamburguer);
 }

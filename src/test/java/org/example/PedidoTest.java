@@ -7,10 +7,29 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PedidoTest {
 
     Pedido pedido;
+    FuncionarioRecepcionista recepcionista;
+    FuncionarioGerente gerente;
+
+    private Pedido criarPedidoArtesanal() {
+        FabricaAbstrata fabrica = FabricaArtesanal.getInstance();
+        Hamburguer hamburguer = fabrica.createHamburguerBase(new Carne200g());
+        return new Pedido(hamburguer, 50.0f);
+    }
+
+    private Pedido criarPedidoSmash() {
+        FabricaAbstrata fabrica = FabricaSmash.getInstance();
+        Hamburguer hamburguer = fabrica.createHamburguerBase(new Carne100g());
+        return new Pedido(hamburguer, 50.0f);
+    }
 
     @BeforeEach
     public void setUp() {
-        pedido = new PedidoLocal(50.0);
+        //pedido para testes
+        pedido = criarPedidoArtesanal();
+
+        //funcionarios para testes
+        gerente = new FuncionarioGerente(null);
+        recepcionista = new FuncionarioRecepcionista(gerente);
     }
 
     // Estado Aceito
@@ -405,4 +424,30 @@ public class PedidoTest {
         pedido.atualizarEstado();
         assertEquals("Atualização do pedido: \n" + "Status atual do Pedido: Pedido cancelado!!",pedido.getEstado().getNotificacaoAtualizacao());
     }
+
+    @Test
+    void deveRetornarPedidoPagoComCartao() {
+        assertEquals("Pagamento via Cartão de R$50.0 com 3% de taxa: R$51.5", pedido.pagarComCartao());
+    }
+
+    @Test
+    void deveRetornarPedidoPagoComDinheiro() {
+        assertEquals("Pagamento via Dinheiro de R$50.0", pedido.pagarComDinheiro());
+    }
+
+    @Test
+    void deveRetornarPedidoPagoComPix() {
+        assertEquals("Pagamento via Pix de R$50.0 com 5% de desconto: R$47.5", pedido.pagarComPix());
+    }
+
+    @Test
+    void deveRetornarRecepcionistaParaAcaoAceita() {
+        assertEquals("Recepcionista aceitou o pedido", recepcionista.realizarAcao(new Acao(PedidoEstadoAceito.getInstance())));
+    }
+
+    @Test
+    void deveRetornarGerenteParaAcaoCancelada() {
+        assertEquals("Gerente cancelou o pedido", recepcionista.realizarAcao(new Acao(PedidoEstadoCancelado.getInstance())));
+    }
+
 }

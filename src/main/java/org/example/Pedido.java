@@ -2,27 +2,26 @@ package org.example;
 
 import java.util.Observable;
 
-public abstract class Pedido extends Observable {
+public class Pedido extends Observable {
 
-    protected PlataformaPagamento plataformaPagamento;
-    protected double valor;
+    private Hamburguer hamburguer;
     private PedidoEstado estado;
+    private float valorAPagar;
 
-    public Pedido(double valor) {
-        this.valor = valor;
-        this.estado = PedidoEstadoAceito.getInstance();
+    public Hamburguer getHamburguer() {
+        return hamburguer;
     }
 
-    public void setPlataformaPagamento(PlataformaPagamento plataformaPagamento) {
-        this.plataformaPagamento = plataformaPagamento;
+    public Pedido(Hamburguer hamburguer, float valorAPagar) {
+        this.hamburguer = hamburguer;
+        this.estado = PedidoEstadoAceito.getInstance();
+        this.valorAPagar = valorAPagar;
     }
 
     public void setEstado(PedidoEstado estado) {
         this.estado = estado;
         this.atualizarEstado();
     }
-
-    public abstract String realizarPedido();
 
     public boolean aceitar() {
         return estado.aceitar(this);
@@ -63,5 +62,21 @@ public abstract class Pedido extends Observable {
     @Override
     public String toString() {
         return "Status atual do Pedido: " + estado.getEstado();
+    }
+
+    private String pagar(FormaPagamento formaPagamento) {
+        return formaPagamento.pagar(valorAPagar);
+    }
+
+    public String pagarComPix() {
+        return pagar(new FormaPagamentoPix());
+    }
+
+    public String pagarComCartao() {
+        return pagar(new FormaPagamentoCartao());
+    }
+
+    public String pagarComDinheiro() {
+        return pagar(new FormaPagamentoDinheiro());
     }
 }

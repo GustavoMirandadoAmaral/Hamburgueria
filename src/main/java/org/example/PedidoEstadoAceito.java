@@ -1,6 +1,6 @@
 package org.example;
 
-public class PedidoEstadoAceito extends PedidoEstado {
+public class PedidoEstadoAceito extends PedidoEstado implements TipoAcao{
 
     private PedidoEstadoAceito() {};
     private static PedidoEstadoAceito instance = new PedidoEstadoAceito();
