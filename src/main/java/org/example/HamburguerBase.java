@@ -1,8 +1,6 @@
 package org.example;
 
-
 public abstract class HamburguerBase implements Hamburguer {
-
 
     private String pao;
     private String carne;
@@ -14,12 +12,28 @@ public abstract class HamburguerBase implements Hamburguer {
         this.tipoCarne = tipoCarne;
     }
 
-    @Override
-    public String toString() {
-        return "Hamburguer: \n" + "pao =" + pao + ' ' + ", carne =" + carne + ' ' + ", tipo da carne =" + tipoCarne.selecionarCarne();
+    // Template Method
+    public String prepararHamburguer() {
+        return selecionarPao() + " + " + prepararCarne() + " + " + finalizarPreparo();
     }
 
+    public String selecionarPao() {
+        return "Pão: " + pao;
+    }
+
+    public abstract String prepararCarne();
+
+    public String finalizarPreparo() {
+        return "Carne: " + carne + " (" + tipoCarne.selecionarCarne() + ")";
+    }
+
+    @Override
     public String getHamburguerCompleto() {
         return toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Hamburguer: \npao: " + pao + ' ' + ", carne: " + carne + ' ' + ", tipo da carne: " + tipoCarne.selecionarCarne();
     }
 }

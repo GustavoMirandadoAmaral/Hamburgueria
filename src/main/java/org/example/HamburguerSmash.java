@@ -1,12 +1,18 @@
 package org.example;
 
-public class HamburguerSmash extends HamburguerBase{
+public class HamburguerSmash extends HamburguerBase {
 
-    public HamburguerSmash(TipoCarne tipoCarne){
-        super("Pão com gergelim", "Carne de boi", tipoCarne);
+    public HamburguerSmash(TipoCarne tipoCarne) {
+        super("Pão com gergelim", "Carne acém", tipoCarne);
     }
 
-    public String getHamburguerCompleto(){
-        return "Hamburguer Smash: " + super.getHamburguerCompleto();
+    @Override
+    public String prepararCarne() {
+        return "Carne prensada na chapa";
+    }
+
+    @Override
+    public String getHamburguerCompleto() {
+        return "Hamburguer Smash: " + super.toString();
     }
 }

@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AtendimentoTest {
 
-    private static final String BASE_ARTESANAL = "Hamburguer Artesanal: Hamburguer: \npao =Pão australiano , carne =Carne ângus , tipo da carne =Carne de 200g";
-    private static final String BASE_SMASH = "Hamburguer Smash: Hamburguer: \npao =Pão com gergelim , carne =Carne de boi , tipo da carne =Carne de 100g";
+    private static final String BASE_ARTESANAL = "Hamburguer Artesanal: Hamburguer: \npao: Pão australiano , carne: Carne ângus , tipo da carne: Carne de 200g";
+    private static final String BASE_SMASH = "Hamburguer Smash: Hamburguer: \npao: Pão com gergelim , carne: Carne acém , tipo da carne: Carne de 100g";
 
     // FabricaArtesanal
     @Test
@@ -84,5 +84,24 @@ class AtendimentoTest {
                 FabricaSmash.getInstance().createHamburguerBase(new Carne100g())
         )));
         assertEquals(BASE_SMASH + " + queijo + molho especial + molho smash", hamburguer.getHamburguerCompleto());
+    }
+
+    // Template Method
+    @Test
+    void deveRetornarPreparoHamburguerArtesanal() {
+        Hamburguer hamburguer = FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g());
+        assertEquals(
+                "Pão: Pão australiano + Carne grelhada em fogo alto + Carne: Carne ângus (Carne de 200g)",
+                ((HamburguerBase) hamburguer).prepararHamburguer()
+        );
+    }
+
+    @Test
+    void deveRetornarPreparoHamburguerSmash() {
+        Hamburguer hamburguer = FabricaSmash.getInstance().createHamburguerBase(new Carne100g());
+        assertEquals(
+                "Pão: Pão com gergelim + Carne prensada na chapa + Carne: Carne acém (Carne de 100g)",
+                ((HamburguerBase) hamburguer).prepararHamburguer()
+        );
     }
 }
