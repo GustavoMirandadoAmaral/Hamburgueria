@@ -11,15 +11,17 @@ public class PedidoTest {
     FuncionarioGerente gerente;
 
     private Pedido criarPedidoArtesanal() {
-        FabricaAbstrata fabrica = FabricaArtesanal.getInstance();
-        Hamburguer hamburguer = fabrica.createHamburguerBase(new Carne200g());
-        return new Pedido(hamburguer, 50.0f);
+        return new PedidoBuilder()
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setValorAPagar(50.0f)
+                .build();
     }
 
     private Pedido criarPedidoSmash() {
-        FabricaAbstrata fabrica = FabricaSmash.getInstance();
-        Hamburguer hamburguer = fabrica.createHamburguerBase(new Carne100g());
-        return new Pedido(hamburguer, 50.0f);
+        return new PedidoBuilder()
+                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(new Carne100g()))
+                .setValorAPagar(40.0f)
+                .build();
     }
 
     @BeforeEach

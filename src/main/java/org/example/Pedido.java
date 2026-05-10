@@ -12,10 +12,22 @@ public class Pedido extends Observable {
         return hamburguer;
     }
 
-    public Pedido(Hamburguer hamburguer, float valorAPagar) {
-        this.hamburguer = hamburguer;
+    public Pedido() {
+        this.hamburguer = null;
+        this.valorAPagar = 0;
         this.estado = PedidoEstadoAceito.getInstance();
+    }
+
+    public void setHamburguer(Hamburguer hamburguer) {
+        this.hamburguer = hamburguer;
+    }
+
+    public void setValorAPagar(float valorAPagar) {
         this.valorAPagar = valorAPagar;
+    }
+
+    public float getValorAPagar() {
+        return valorAPagar;
     }
 
     public void setEstado(PedidoEstado estado) {
