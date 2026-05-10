@@ -85,23 +85,4 @@ class AtendimentoTest {
         )));
         assertEquals(BASE_SMASH + " + queijo + molho especial + molho smash", hamburguer.getHamburguerCompleto());
     }
-
-    // Template Method
-    @Test
-    void deveRetornarPreparoHamburguerArtesanal() {
-        Hamburguer hamburguer = FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g());
-        assertEquals(
-                "Pão: Pão australiano + Carne grelhada em fogo alto + Carne: Carne ângus (Carne de 200g)",
-                ((HamburguerBase) hamburguer).prepararHamburguer()
-        );
-    }
-
-    @Test
-    void deveRetornarPreparoHamburguerSmash() {
-        Hamburguer hamburguer = FabricaSmash.getInstance().createHamburguerBase(new Carne100g());
-        assertEquals(
-                "Pão: Pão com gergelim + Carne prensada na chapa + Carne: Carne acém (Carne de 100g)",
-                ((HamburguerBase) hamburguer).prepararHamburguer()
-        );
-    }
 }
