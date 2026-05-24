@@ -9,14 +9,6 @@ public class Produto extends ItemCardapio {
         this.preco = preco;
     }
 
-    public float getPreco() {
-        return preco;
-    }
-
-    public void setPreco(float preco) {
-        this.preco = preco;
-    }
-
     public String getItemCardapio() {
         return "Produto: " + this.getDescricao() + " - preço: R$" + this.preco + "\n";
     }

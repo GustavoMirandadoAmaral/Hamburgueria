@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Observable;
 
-public class Pedido extends Observable {
+public class Pedido extends Observable implements Cloneable {
 
     private Hamburguer hamburguer;
     private PedidoEstado estado;
@@ -74,6 +74,11 @@ public class Pedido extends Observable {
     @Override
     public String toString() {
         return "Status atual do Pedido: " + estado.getEstado();
+    }
+
+    @Override
+    public Pedido clone() throws CloneNotSupportedException {
+        return (Pedido) super.clone();
     }
 
     private String pagar(FormaPagamento formaPagamento) {

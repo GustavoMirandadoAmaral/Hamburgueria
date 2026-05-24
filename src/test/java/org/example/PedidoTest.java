@@ -452,4 +452,12 @@ public class PedidoTest {
         assertEquals("Gerente cancelou o pedido", recepcionista.realizarAcao(new Acao(PedidoEstadoCancelado.getInstance())));
     }
 
+    @Test
+    void testClone() throws CloneNotSupportedException {
+
+        Pedido pedidoClone = pedido.clone();
+        pedidoClone.setEstado(PedidoEstadoEmRota.getInstance());
+        assertEquals("Aluno{matricula=123, nome='Aluno Original', endereco=Endereco{logradouro='Rua A', numero=1}, localNascimento='Juiz de Fora'}", pedido.toString());
+        assertEquals("Aluno{matricula=456, nome='Aluno Clonado', endereco=Endereco{logradouro='Rua A', numero=2}, localNascimento='Juiz de Fora'}", pedidoClone.toString());
+    }
 }

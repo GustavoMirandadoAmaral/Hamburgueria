@@ -3,7 +3,7 @@ package org.example;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AtendimentoTest {
+class HamburguerTest {
 
     private static final String BASE_ARTESANAL = "Hamburguer Artesanal: Hamburguer: \npao: Pão australiano , carne: Carne ângus , tipo da carne: Carne de 200g";
     private static final String BASE_SMASH = "Hamburguer Smash: Hamburguer: \npao: Pão com gergelim , carne: Carne acém , tipo da carne: Carne de 100g";
