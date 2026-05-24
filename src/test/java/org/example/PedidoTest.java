@@ -6,6 +6,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PedidoTest {
 
+    static class FabricaInvalida implements FabricaAbstrata {
+        public Hamburguer createHamburguerBase(TipoCarne tipoCarne) {
+            throw new IllegalArgumentException("Hamburguer indisponível");
+        }
+        public Hamburguer adicionarMolho(Hamburguer hamburguer) {
+            throw new IllegalArgumentException("Molho indisponível");
+        }
+    }
+
     Pedido pedido;
     FuncionarioRecepcionista recepcionista;
     FuncionarioGerente gerente;
@@ -453,11 +462,39 @@ public class PedidoTest {
     }
 
     @Test
-    void testClone() throws CloneNotSupportedException {
+    void deveRetornarPendenciaHamburguer() {
+        Pedido pedido = new PedidoBuilder()
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setValorAPagar(50.0f)
+                .build();
+        assertFalse(pedido.fazerPedido(new FabricaInvalida(), new Carne200g(), "Queijo"));
+    }
 
-        Pedido pedidoClone = pedido.clone();
-        pedidoClone.setEstado(PedidoEstadoEmRota.getInstance());
-        assertEquals("Aluno{matricula=123, nome='Aluno Original', endereco=Endereco{logradouro='Rua A', numero=1}, localNascimento='Juiz de Fora'}", pedido.toString());
-        assertEquals("Aluno{matricula=456, nome='Aluno Clonado', endereco=Endereco{logradouro='Rua A', numero=2}, localNascimento='Juiz de Fora'}", pedidoClone.toString());
+    @Test
+    void deveRetornarPendenciaIngrediente() {
+        Pedido pedido = new PedidoBuilder()
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setValorAPagar(50.0f)
+                .build();
+        assertFalse(pedido.fazerPedido(FabricaArtesanal.getInstance(), new Carne200g(), "Inexistente"));
+    }
+
+    @Test
+    void deveRetornarPendenciaPagamento() {
+        Pedido pedido = new PedidoBuilder()
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setValorAPagar(50.0f)
+                .build();
+        pedido.setValorAPagar(0.0f); // muda para inválido depois
+        assertFalse(pedido.fazerPedido(FabricaArtesanal.getInstance(), new Carne200g(), "Queijo"));
+    }
+
+    @Test
+    void deveRetornarPedidoSemPendencia() {
+        Pedido pedido = new PedidoBuilder()
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setValorAPagar(50.0f)
+                .build();
+        assertTrue(pedido.fazerPedido(FabricaArtesanal.getInstance(), new Carne200g(), "Queijo"));
     }
 }

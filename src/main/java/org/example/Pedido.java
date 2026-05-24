@@ -96,4 +96,8 @@ public class Pedido extends Observable implements Cloneable {
     public String pagarComDinheiro() {
         return pagar(new FormaPagamentoDinheiro());
     }
+
+    public boolean fazerPedido(FabricaAbstrata fabrica, TipoCarne tipoCarne, String ingrediente) {
+        return PedidoFacade.verificarPendenciasPedido(fabrica, tipoCarne, ingrediente, this.valorAPagar);
+    }
 }
