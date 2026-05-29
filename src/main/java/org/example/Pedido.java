@@ -76,11 +76,6 @@ public class Pedido extends Observable implements Cloneable {
         return "Status atual do Pedido: " + estado.getEstado();
     }
 
-    @Override
-    public Pedido clone() throws CloneNotSupportedException {
-        return (Pedido) super.clone();
-    }
-
     private String pagar(FormaPagamento formaPagamento) {
         return formaPagamento.pagar(valorAPagar);
     }
@@ -100,4 +95,12 @@ public class Pedido extends Observable implements Cloneable {
     public boolean fazerPedido(FabricaAbstrata fabrica, TipoCarne tipoCarne, String ingrediente) {
         return PedidoFacade.verificarPendenciasPedido(fabrica, tipoCarne, ingrediente, this.valorAPagar);
     }
+
+    @Override
+    public Pedido clone() throws CloneNotSupportedException {
+        Pedido pedidoClone = (Pedido) super.clone();
+        pedidoClone.setEstado(PedidoEstadoAceito.getInstance());
+        return pedidoClone;
+    }
+
 }
