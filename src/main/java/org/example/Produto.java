@@ -9,7 +9,15 @@ public class Produto extends ItemCardapio {
         this.preco = preco;
     }
 
+    public float getPreco() {
+        return preco;
+    }
+
     public String getItemCardapio() {
         return "Produto: " + this.getDescricao() + " - preço: R$" + this.preco + "\n";
+    }
+
+    public String aceitar(CardapioVisitor visitor) {
+        return visitor.exibirProduto(this);
     }
 }

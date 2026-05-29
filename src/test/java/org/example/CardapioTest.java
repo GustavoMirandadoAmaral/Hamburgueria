@@ -53,4 +53,20 @@ class CardapioTest {
             assertEquals("Cardápio sem produtos", e.getMessage());
         }
     }
+
+    @Test
+    void deveExibirProduto() {
+        Produto produto = new Produto("Hamburguer Artesanal", 35.0f);
+
+        CardapioExibidorVisitor visitor = new CardapioExibidorVisitor();
+        assertEquals("Produto{descricao='Hamburguer Artesanal', preco=35.0}", visitor.exibir(produto));
+    }
+
+    @Test
+    void deveExibirCategoria() {
+        Categoria categoria = new Categoria("Hambúrgueres");
+
+        CardapioExibidorVisitor visitor = new CardapioExibidorVisitor();
+        assertEquals("Categoria{descricao='Hambúrgueres'}", visitor.exibir(categoria));
+    }
 }

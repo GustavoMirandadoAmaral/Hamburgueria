@@ -24,4 +24,8 @@ public class Categoria extends ItemCardapio{
         }
         return saida;
     }
+
+    public String aceitar(CardapioVisitor visitor) {
+        return visitor.exibirCategoria(this);
+    }
 }

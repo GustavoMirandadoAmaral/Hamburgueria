@@ -13,4 +13,6 @@ public abstract class ItemCardapio {
     }
 
     public abstract String getItemCardapio();
+
+    public abstract String aceitar(CardapioVisitor visitor);
 }
