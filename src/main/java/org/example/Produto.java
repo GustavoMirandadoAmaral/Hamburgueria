@@ -4,8 +4,8 @@ public class Produto extends ItemCardapio {
 
     private float preco;
 
-    public Produto(String descricao, float preco) {
-        super(descricao);
+    public Produto(Hamburguer hamburguer, float preco) {
+        super(hamburguer.getHamburguerCompleto());
         this.preco = preco;
     }
 

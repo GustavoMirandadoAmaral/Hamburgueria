@@ -16,6 +16,10 @@ public class Categoria extends ItemCardapio{
         this.itens.add(item);
     }
 
+    public void removeItem(ItemCardapio item) {
+        this.itens.remove(item);
+    }
+
     public String getItemCardapio() {
         String saida = "";
         saida = "Categoria: " + this.getDescricao() + "\n";
