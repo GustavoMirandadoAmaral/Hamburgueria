@@ -21,6 +21,7 @@ class ClienteTest {
     @Test
     void deveArmazenarPedidos() {
         Cliente cliente = new Cliente();
+        ClienteProxy proxy = new ClienteProxy(cliente, true);
         Pedido pedido1 = new PedidoBuilder()
                 .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
                 .setValorAPagar(50.0f)
@@ -31,12 +32,13 @@ class ClienteTest {
                 .build();
         cliente.fazerPedido(pedido1);
         cliente.fazerPedido(pedido2);
-        assertEquals(2, cliente.getHistoricoPedidos().size());
+        assertEquals(2, proxy.getHistoricoPedidos().size());
     }
 
     @Test
     void deveRetornarPrimeiroPedido() {
         Cliente cliente = new Cliente();
+        ClienteProxy proxy = new ClienteProxy(cliente, true);
         Pedido pedido1 = new PedidoBuilder()
                 .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
                 .setValorAPagar(50.0f)
@@ -47,12 +49,13 @@ class ClienteTest {
                 .build();
         cliente.fazerPedido(pedido1);
         cliente.fazerPedido(pedido2);
-        assertEquals(pedido1, cliente.restaurarPedido(0));
+        assertEquals(pedido1, proxy.restaurarPedido(0));
     }
 
     @Test
     void deveRetornarPedidoAnterior() {
         Cliente cliente = new Cliente();
+        ClienteProxy proxy = new ClienteProxy(cliente, true);
         Pedido pedido1 = new PedidoBuilder()
                 .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
                 .setValorAPagar(50.0f)
@@ -68,22 +71,25 @@ class ClienteTest {
         cliente.fazerPedido(pedido1);
         cliente.fazerPedido(pedido2);
         cliente.fazerPedido(pedido3);
-        assertEquals(pedido2, cliente.restaurarPedido(1));
+        assertEquals(pedido2, proxy.restaurarPedido(1));
     }
 
     @Test
     void deveRetornarExcecaoIndiceInvalido() {
         try {
             Cliente cliente = new Cliente();
-            cliente.restaurarPedido(0);
+            ClienteProxy proxy = new ClienteProxy(cliente, true);
+            proxy.restaurarPedido(0);
             fail();
         } catch (IllegalArgumentException e) {
             assertEquals("Índice inválido", e.getMessage());
         }
     }
+
     @Test
     void deveRetornarPedidoClonado() throws CloneNotSupportedException {
         Cliente cliente = new Cliente();
+        ClienteProxy proxy = new ClienteProxy(cliente, true);
         Pedido pedido = new PedidoBuilder()
                 .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
                 .setValorAPagar(50.0f)
@@ -91,11 +97,23 @@ class ClienteTest {
         pedido.preparar();
         pedido.pronto();
         cliente.fazerPedido(pedido);
-        Pedido pedidoClone = cliente.repetirPedido(0);
+        Pedido pedidoClone = proxy.repetirPedido(0);
 
         assertEquals(PedidoEstadoPronto.getInstance(), pedido.getEstado());
         assertEquals(PedidoEstadoAceito.getInstance(), pedidoClone.getEstado());
         assertEquals(pedido.getHamburguer(), pedidoClone.getHamburguer());
         assertEquals(pedido.getValorAPagar(), pedidoClone.getValorAPagar());
+    }
+
+    @Test
+    void deveRetornarExcecaoClienteNaoAutenticadoConsultarHistorico() {
+        try {
+            Cliente cliente = new Cliente();
+            ClienteProxy proxy = new ClienteProxy(cliente, false);
+            proxy.getHistoricoPedidos();
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Cliente não autenticado", e.getMessage());
+        }
     }
 }
