@@ -437,8 +437,8 @@ public class PedidoTest {
     }
 
     @Test
-    void deveRetornarPedidoPagoComCartao() {
-        assertEquals("Pagamento via Cartão de R$50.0 com 3% de taxa: R$51.5", pedido.pagarComCartao());
+    void deveRetornarPedidoPagoComMaquinaCartao() {
+        assertEquals("Pagamento via Cartão de R$50.0 com 3% de taxa: R$51.5", pedido.pagarComMaquinaCartao());
     }
 
     @Test

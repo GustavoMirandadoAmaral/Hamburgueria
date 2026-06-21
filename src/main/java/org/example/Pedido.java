@@ -7,6 +7,8 @@ public class Pedido extends Observable implements Cloneable {
     private Hamburguer hamburguer;
     private PedidoEstado estado;
     private float valorAPagar;
+    private FormaPagamento formaPagamentoCartao;
+    private MaquinaCartaoAdapter maquinaCartao;
 
     public Hamburguer getHamburguer() {
         return hamburguer;
@@ -16,6 +18,8 @@ public class Pedido extends Observable implements Cloneable {
         this.hamburguer = null;
         this.valorAPagar = 0;
         this.estado = PedidoEstadoAceito.getInstance();
+        this.formaPagamentoCartao = new FormaPagamentoCartao();
+        this.maquinaCartao = new MaquinaCartaoAdapter(formaPagamentoCartao);
     }
 
     public void setHamburguer(Hamburguer hamburguer) {
@@ -84,10 +88,6 @@ public class Pedido extends Observable implements Cloneable {
         return pagar(new FormaPagamentoPix());
     }
 
-    public String pagarComCartao() {
-        return pagar(new FormaPagamentoCartao());
-    }
-
     public String pagarComDinheiro() {
         return pagar(new FormaPagamentoDinheiro());
     }
@@ -101,6 +101,15 @@ public class Pedido extends Observable implements Cloneable {
         Pedido pedidoClone = (Pedido) super.clone();
         pedidoClone.setEstado(PedidoEstadoAceito.getInstance());
         return pedidoClone;
+    }
+
+    public String pagarComMaquinaCartao() {
+        maquinaCartao.registrarTransacao(valorAPagar);
+        return maquinaCartao.recuperarPagamento(valorAPagar);
+    }
+
+    public int getCodigoTransacao() {
+        return maquinaCartao.getCodigoStatus();
     }
 
 }
