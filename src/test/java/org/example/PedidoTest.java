@@ -437,18 +437,36 @@ public class PedidoTest {
     }
 
     @Test
-    void deveRetornarPedidoPagoComMaquinaCartao() {
+    void deveRetornarPedidoArtesanalPagoComMaquinaCartao() {
         assertEquals("Pagamento via Cartão de R$50.0 com 3% de taxa: R$51.5", pedido.pagarComMaquinaCartao());
     }
 
     @Test
-    void deveRetornarPedidoPagoComDinheiro() {
+    void deveRetornarPedidoArtesanalPagoComDinheiro() {
         assertEquals("Pagamento via Dinheiro de R$50.0", pedido.pagarComDinheiro());
     }
 
     @Test
-    void deveRetornarPedidoPagoComPix() {
+    void deveRetornarPedidoArtesanalPagoComPix() {
         assertEquals("Pagamento via Pix de R$50.0 com 5% de desconto: R$47.5", pedido.pagarComPix());
+    }
+
+    @Test
+    void deveRetornarPedidoSmashPagoComMaquinaCartao() {
+        Pedido pedidoSmash = criarPedidoSmash();
+        assertEquals("Pagamento via Cartão de R$40.0 com 3% de taxa: R$41.2", pedidoSmash.pagarComMaquinaCartao());
+    }
+
+    @Test
+    void deveRetornarPedidoSmashPagoComDinheiro() {
+        Pedido pedidoSmash = criarPedidoSmash();
+        assertEquals("Pagamento via Dinheiro de R$40.0", pedidoSmash.pagarComDinheiro());
+    }
+
+    @Test
+    void deveRetornarPedidoSmashPagoComPix() {
+        Pedido pedidoSmash = criarPedidoSmash();
+        assertEquals("Pagamento via Pix de R$40.0 com 5% de desconto: R$38.0", pedidoSmash.pagarComPix());
     }
 
     @Test
@@ -462,12 +480,18 @@ public class PedidoTest {
     }
 
     @Test
-    void deveRetornarPendenciaHamburguer() {
+    void deveRetornarPendenciaHamburguerArtesanal() {
         Pedido pedido = new PedidoBuilder()
                 .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
                 .setValorAPagar(50.0f)
                 .build();
         assertFalse(pedido.fazerPedido(new FabricaInvalida(), new Carne200g(), "Queijo"));
+    }
+
+    @Test
+    void deveRetornarPendenciaIngredienteSmash() {
+        Pedido pedidoSmash = criarPedidoSmash();
+        assertFalse(pedidoSmash.fazerPedido(FabricaSmash.getInstance(), new Carne100g(), "Inexistente"));
     }
 
     @Test
@@ -490,11 +514,17 @@ public class PedidoTest {
     }
 
     @Test
-    void deveRetornarPedidoSemPendencia() {
+    void deveRetornarPedidoArtesanalSemPendencia() {
         Pedido pedido = new PedidoBuilder()
                 .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
                 .setValorAPagar(50.0f)
                 .build();
         assertTrue(pedido.fazerPedido(FabricaArtesanal.getInstance(), new Carne200g(), "Queijo"));
+    }
+
+    @Test
+    void deveRetornarPedidoSmashSemPendencia() {
+        Pedido pedidoSmash = criarPedidoSmash();
+        assertTrue(pedidoSmash.fazerPedido(FabricaSmash.getInstance(), new Carne100g(), "MolhoSmash"));
     }
 }
