@@ -9,6 +9,10 @@ public class Produto extends ItemCardapio {
         this.preco = preco;
     }
 
+    public float getPrecoComTaxa(float taxaServico) {
+        return (float) CalculadoraPreco.calcularPrecoFinal(this.preco, taxaServico);
+    }
+
     public float getPreco() {
         return preco;
     }
