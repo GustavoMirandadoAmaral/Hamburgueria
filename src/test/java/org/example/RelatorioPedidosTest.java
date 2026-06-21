@@ -8,7 +8,7 @@ class RelatorioPedidosTest {
     @Test
     void deveContarPedidosEntregues() {
         Pedido pedido1 = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
         pedido1.preparar();
@@ -24,13 +24,13 @@ class RelatorioPedidosTest {
         pedido2.entregar();
 
         Pedido pedido3 = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
         pedido3.cancelar();
 
         Pedido pedido4 = new PedidoBuilder()
-                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(new Carne100g()))
+                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g")))
                 .setValorAPagar(40.0f)
                 .build();
         pedido4.preparar();
@@ -44,22 +44,22 @@ class RelatorioPedidosTest {
     @Test
     void deveContarTotalPedidos() {
         Pedido pedido1 = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
 
         Pedido pedido2 = new PedidoBuilder()
-                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(new Carne100g()))
+                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g")))
                 .setValorAPagar(40.0f)
                 .build();
 
         Pedido pedido3 = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
 
         Pedido pedido4 = new PedidoBuilder()
-                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(new Carne100g()))
+                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g")))
                 .setValorAPagar(40.0f)
                 .build();
 

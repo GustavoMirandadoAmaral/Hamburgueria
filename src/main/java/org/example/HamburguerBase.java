@@ -28,12 +28,12 @@ public abstract class HamburguerBase implements Hamburguer {
     }
 
     @Override
-    public String getHamburguerCompleto() {
-        return toString();
+    public String toString() {
+        return "Hamburguer: \npao: " + pao + ' ' + ", carne: " + carne + ' ' + ", tipo da carne: " + tipoCarne.selecionarCarne();
     }
 
     @Override
-    public String toString() {
-        return "Hamburguer: \npao: " + pao + ' ' + ", carne: " + carne + ' ' + ", tipo da carne: " + tipoCarne.selecionarCarne();
+    public String getHamburguerCompleto() {
+        return toString();
     }
 }

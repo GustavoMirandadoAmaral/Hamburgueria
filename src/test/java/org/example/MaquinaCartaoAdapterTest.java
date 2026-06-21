@@ -20,4 +20,15 @@ class MaquinaCartaoAdapterTest {
 
         assertEquals(0, maquinaCartao.getCodigoStatus());
     }
+
+    @Test
+    void deveRetornarExcecaoParaValorInvalido() {
+        try {
+            MaquinaCartaoAdapter maquinaCartao = new MaquinaCartaoAdapter(new FormaPagamentoCartao());
+            maquinaCartao.registrarTransacao(0.0f);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Valor de transação inválido", e.getMessage());
+        }
+    }
 }

@@ -21,24 +21,22 @@ public class PedidoTest {
 
     private Pedido criarPedidoArtesanal() {
         return new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
     }
 
     private Pedido criarPedidoSmash() {
         return new PedidoBuilder()
-                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(new Carne100g()))
+                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g")))
                 .setValorAPagar(40.0f)
                 .build();
     }
 
     @BeforeEach
     public void setUp() {
-        //pedido para testes
         pedido = criarPedidoArtesanal();
 
-        //funcionarios para testes
         gerente = new FuncionarioGerente(null);
         recepcionista = new FuncionarioRecepcionista(gerente);
     }
@@ -470,6 +468,12 @@ public class PedidoTest {
     }
 
     @Test
+    void deveRetornarCodigoTransacaoAposPagamentoComMaquinaCartao() {
+        pedido.pagarComMaquinaCartao();
+        assertEquals(0, pedido.getCodigoTransacao());
+    }
+
+    @Test
     void deveRetornarRecepcionistaParaAcaoAceita() {
         assertEquals("Recepcionista aceitou o pedido", recepcionista.realizarAcao(new Acao(PedidoEstadoAceito.getInstance())));
     }
@@ -497,34 +501,34 @@ public class PedidoTest {
     @Test
     void deveRetornarPendenciaIngrediente() {
         Pedido pedido = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
-        assertFalse(pedido.fazerPedido(FabricaArtesanal.getInstance(), new Carne200g(), "Inexistente"));
+        assertFalse(pedido.fazerPedido(FabricaArtesanal.getInstance(), CarneFactory.getCarne("200g"), "Inexistente"));
     }
 
     @Test
     void deveRetornarPendenciaPagamento() {
         Pedido pedido = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
         pedido.setValorAPagar(0.0f); // muda para inválido depois
-        assertFalse(pedido.fazerPedido(FabricaArtesanal.getInstance(), new Carne200g(), "Queijo"));
+        assertFalse(pedido.fazerPedido(FabricaArtesanal.getInstance(), CarneFactory.getCarne("200g"), "Queijo"));
     }
 
     @Test
     void deveRetornarPedidoArtesanalSemPendencia() {
         Pedido pedido = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
-        assertTrue(pedido.fazerPedido(FabricaArtesanal.getInstance(), new Carne200g(), "Queijo"));
+        assertTrue(pedido.fazerPedido(FabricaArtesanal.getInstance(), CarneFactory.getCarne("200g"), "Queijo"));
     }
 
     @Test
     void deveRetornarPedidoSmashSemPendencia() {
         Pedido pedidoSmash = criarPedidoSmash();
-        assertTrue(pedidoSmash.fazerPedido(FabricaSmash.getInstance(), new Carne100g(), "MolhoSmash"));
+        assertTrue(pedidoSmash.fazerPedido(FabricaSmash.getInstance(), CarneFactory.getCarne("100g"), "MolhoSmash"));
     }
 }

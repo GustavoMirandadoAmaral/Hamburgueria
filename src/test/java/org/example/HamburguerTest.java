@@ -11,14 +11,14 @@ class HamburguerTest {
     // FabricaArtesanal
     @Test
     void deveCriarHamburguerArtesanalSemIngrediente() {
-        Hamburguer hamburguer = FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g());
+        Hamburguer hamburguer = FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g"));
         assertEquals(BASE_ARTESANAL, hamburguer.getHamburguerCompleto());
     }
 
     @Test
     void deveCriarHamburguerArtesanalComMolhoEspecial() {
         Hamburguer hamburguer = FabricaArtesanal.getInstance().adicionarMolho(
-                FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g())
+                FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g"))
         );
         assertEquals(BASE_ARTESANAL + " + molho especial", hamburguer.getHamburguerCompleto());
     }
@@ -26,7 +26,7 @@ class HamburguerTest {
     @Test
     void deveCriarHamburguerArtesanalComQueijo() {
         Hamburguer hamburguer = new IngredienteQueijo(
-                FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g())
+                FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g"))
         );
         assertEquals(BASE_ARTESANAL + " + queijo", hamburguer.getHamburguerCompleto());
     }
@@ -34,7 +34,7 @@ class HamburguerTest {
     @Test
     void deveCriarHamburguerArtesanalComQueijoEMolhoEspecial() {
         Hamburguer hamburguer = new IngredienteMolhoEspecial(new IngredienteQueijo(
-                FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g())
+                FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g"))
         ));
         assertEquals(BASE_ARTESANAL + " + queijo + molho especial", hamburguer.getHamburguerCompleto());
     }
@@ -42,7 +42,7 @@ class HamburguerTest {
     @Test
     void deveCriarHamburguerArtesanalComTodosIngredientes() {
         Hamburguer hamburguer = new IngredienteMolhoSmash(new IngredienteMolhoEspecial(new IngredienteQueijo(
-                FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g())
+                FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g"))
         )));
         assertEquals(BASE_ARTESANAL + " + queijo + molho especial + molho smash", hamburguer.getHamburguerCompleto());
     }
@@ -50,14 +50,14 @@ class HamburguerTest {
     // FabricaSmash
     @Test
     void deveCriarHamburguerSmashSemIngrediente() {
-        Hamburguer hamburguer = FabricaSmash.getInstance().createHamburguerBase(new Carne100g());
+        Hamburguer hamburguer = FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g"));
         assertEquals(BASE_SMASH, hamburguer.getHamburguerCompleto());
     }
 
     @Test
     void deveCriarHamburguerSmashComMolhoSmash() {
         Hamburguer hamburguer = FabricaSmash.getInstance().adicionarMolho(
-                FabricaSmash.getInstance().createHamburguerBase(new Carne100g())
+                FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g"))
         );
         assertEquals(BASE_SMASH + " + molho smash", hamburguer.getHamburguerCompleto());
     }
@@ -65,7 +65,7 @@ class HamburguerTest {
     @Test
     void deveCriarHamburguerSmashComQueijo() {
         Hamburguer hamburguer = new IngredienteQueijo(
-                FabricaSmash.getInstance().createHamburguerBase(new Carne100g())
+                FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g"))
         );
         assertEquals(BASE_SMASH + " + queijo", hamburguer.getHamburguerCompleto());
     }
@@ -73,7 +73,7 @@ class HamburguerTest {
     @Test
     void deveCriarHamburguerSmashComQueijoEMolhoSmash() {
         Hamburguer hamburguer = new IngredienteMolhoSmash(new IngredienteQueijo(
-                FabricaSmash.getInstance().createHamburguerBase(new Carne100g())
+                FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g"))
         ));
         assertEquals(BASE_SMASH + " + queijo + molho smash", hamburguer.getHamburguerCompleto());
     }
@@ -81,7 +81,7 @@ class HamburguerTest {
     @Test
     void deveCriarHamburguerSmashComTodosIngredientes() {
         Hamburguer hamburguer = new IngredienteMolhoSmash(new IngredienteMolhoEspecial(new IngredienteQueijo(
-                FabricaSmash.getInstance().createHamburguerBase(new Carne100g())
+                FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g"))
         )));
         assertEquals(BASE_SMASH + " + queijo + molho especial + molho smash", hamburguer.getHamburguerCompleto());
     }

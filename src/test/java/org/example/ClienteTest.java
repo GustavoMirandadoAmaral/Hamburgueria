@@ -9,7 +9,7 @@ class ClienteTest {
     void deveFazerPedido() {
         Cliente cliente = new Cliente();
         Pedido pedido = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
         assertEquals("O App agradece seu contato.\n" +
@@ -23,11 +23,11 @@ class ClienteTest {
         Cliente cliente = new Cliente();
         ClienteProxy proxy = new ClienteProxy(cliente, true);
         Pedido pedido1 = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
         Pedido pedido2 = new PedidoBuilder()
-                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(new Carne100g()))
+                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g")))
                 .setValorAPagar(40.0f)
                 .build();
         cliente.fazerPedido(pedido1);
@@ -40,11 +40,11 @@ class ClienteTest {
         Cliente cliente = new Cliente();
         ClienteProxy proxy = new ClienteProxy(cliente, true);
         Pedido pedido1 = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
         Pedido pedido2 = new PedidoBuilder()
-                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(new Carne100g()))
+                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g")))
                 .setValorAPagar(40.0f)
                 .build();
         cliente.fazerPedido(pedido1);
@@ -57,15 +57,15 @@ class ClienteTest {
         Cliente cliente = new Cliente();
         ClienteProxy proxy = new ClienteProxy(cliente, true);
         Pedido pedido1 = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
         Pedido pedido2 = new PedidoBuilder()
-                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(new Carne100g()))
+                .setHamburguer(FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g")))
                 .setValorAPagar(40.0f)
                 .build();
         Pedido pedido3 = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
         cliente.fazerPedido(pedido1);
@@ -91,7 +91,7 @@ class ClienteTest {
         Cliente cliente = new Cliente();
         ClienteProxy proxy = new ClienteProxy(cliente, true);
         Pedido pedido = new PedidoBuilder()
-                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()))
+                .setHamburguer(FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")))
                 .setValorAPagar(50.0f)
                 .build();
         pedido.preparar();

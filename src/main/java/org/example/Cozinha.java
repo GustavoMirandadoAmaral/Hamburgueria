@@ -5,23 +5,17 @@ import java.util.List;
 
 public class Cozinha {
 
-    private List<HamburguerBase> hamburgueres = new ArrayList<>();
+    private List<Pedido> pedidosEmPreparo = new ArrayList<>();
 
-    public void adicionarHamburguer(String tipo, String tipoCarne) {
-        TipoCarne carne = CarneFactory.getCarne(tipoCarne);
-        HamburguerBase hamburguer;
-        if (tipo.equals("Artesanal")) {
-            hamburguer = new HamburguerArtesanal(carne);
-        } else {
-            hamburguer = new HamburguerSmash(carne);
-        }
-        hamburgueres.add(hamburguer);
+    public void registrarPedido(Pedido pedido) {
+        pedidosEmPreparo.add(pedido);
     }
 
-    public List<String> obterHamburgueres() {
+    public List<String> prepararTodos() {
         List<String> saida = new ArrayList<>();
-        for (HamburguerBase hamburguer : hamburgueres) {
-            saida.add(hamburguer.getHamburguerCompleto());
+        for (Pedido pedido : pedidosEmPreparo) {
+            saida.add(pedido.getHamburguer().prepararHamburguer());
+            pedido.preparar();
         }
         return saida;
     }

@@ -17,6 +17,9 @@ public class MaquinaCartaoAdapter extends MaquinaCartao {
     }
 
     public void registrarTransacao(float valor) {
+        if (valor <= 0) {
+            throw new IllegalArgumentException("Valor de transação inválido");
+        }
         this.setCodigoStatus(0);
     }
 }

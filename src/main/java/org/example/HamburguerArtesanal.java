@@ -13,6 +13,6 @@ public class HamburguerArtesanal extends HamburguerBase {
 
     @Override
     public String getHamburguerCompleto() {
-        return "Hamburguer Artesanal: " + super.getHamburguerCompleto();
+        return "Hamburguer Artesanal: " + super.toString();
     }
 }

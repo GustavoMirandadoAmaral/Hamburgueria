@@ -8,7 +8,7 @@ class CalculadoraPrecoTest {
     @Test
     void deveCalcularExpressaoComFormulaHamburguerArtesanal() {
         Produto produto = new Produto(
-                FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()), 35.0f);
+                FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")), 35.0f);
 
         assertEquals(42.5f, produto.getPrecoComTaxa(5.0f));
     }
@@ -16,7 +16,7 @@ class CalculadoraPrecoTest {
     @Test
     void deveCalcularExpressaoComFormulaHamburguerSmash() {
         Produto produto = new Produto(
-                FabricaSmash.getInstance().createHamburguerBase(new Carne100g()), 28.0f);
+                FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g")), 28.0f);
 
         assertEquals(34.0f, produto.getPrecoComTaxa(4.0f));
     }

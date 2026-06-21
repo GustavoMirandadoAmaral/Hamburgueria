@@ -9,9 +9,9 @@ class CardapioTest {
     void deveRetornarCardapio() {
         Categoria hamburgueres = new Categoria("Hambúrgueres");
         Produto artesanal = new Produto(
-                FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()), 35.0f);
+                FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")), 35.0f);
         Produto smash = new Produto(
-                FabricaSmash.getInstance().createHamburguerBase(new Carne100g()), 28.0f);
+                FabricaSmash.getInstance().createHamburguerBase(CarneFactory.getCarne("100g")), 28.0f);
         hamburgueres.addItem(artesanal);
         hamburgueres.addItem(smash);
 
@@ -38,7 +38,7 @@ class CardapioTest {
     @Test
     void deveExibirProduto() {
         Produto produto = new Produto(
-                FabricaArtesanal.getInstance().createHamburguerBase(new Carne200g()), 35.0f);
+                FabricaArtesanal.getInstance().createHamburguerBase(CarneFactory.getCarne("200g")), 35.0f);
 
         CardapioExibidorVisitor visitor = new CardapioExibidorVisitor();
         assertEquals("Produto{descricao='" + produto.getDescricao() + "', preco=35.0}", visitor.exibir(produto));
