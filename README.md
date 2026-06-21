@@ -1,3 +1,3 @@
 Diagrama de estado e de classes:
 
-<img width="2354" height="1518" alt="Diagrama sem nome drawio (1)" src="https://github.com/user-attachments/assets/8edca1ca-e85e-4975-8110-4101f77b3b16" />
+<img width="2328" height="1524" alt="Diagrama sem nome drawio (2)" src="https://github.com/user-attachments/assets/ffb1fdc7-225d-462f-89ac-9e55b4076cb8" />
